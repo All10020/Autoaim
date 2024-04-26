@@ -1,0 +1,17 @@
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+
+local player = Players.LocalPlayer
+local tool = player.Backpack:FindFirstChild("Rifle") or player.Character:FindFirstChild("Rifle")
+
+RunService.RenderStepped:Connect(function()
+    for i, v in pairs(Players:GetPlayers()) do
+        if v ~= player and v.Character and v.Character:FindFirstChild("Humanoid") then
+            local distance = (player.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).magnitude
+            if distance < 50 then -- Adjust the range as needed
+                tool:Activate() -- Assuming the tool has an Activate method for shooting
+                -- You can add more advanced logic for targeting and shooting here
+            end
+        end
+    end
+end)
